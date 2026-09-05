@@ -30,15 +30,44 @@ fabricate one.
 
 ## Data
 
-- `src/association/facts.cljc` — the catalog, source of truth.
-- `schema/association-rule.edn` — DataScript schema.
-- `data/datascript-tx.edn` — derived DataScript tx-data (query this
-  alongside other `cloud-itonami`/`etzhayyim` compliance-fact sources via
-  `com-junkawasaki/root`'s `scripts/compliance-fact-query.cljs`).
+- `src/association/facts.cljc` — the catalog, source of truth, authored by
+  hand.
+- `data/datascript-tx.edn` — the same catalog as DataScript tx-data (query
+  it alongside other `cloud-itonami`/`etzhayyim` compliance-fact sources
+  via `com-junkawasaki/root`'s `scripts/compliance-fact-query.cljs`).
+- `src/association_facts.kotoba` — the same catalog as Kotoba, reaching the
+  oracle, wasm and both native ISAs. **Generated** by `tools/gen_kotoba.cljs`
+  from the tx-data; do not edit by hand, regenerate:
 
-Code of Professional Conduct was verified by directly reading the
-source PDF's cover page (effective 2014-12-15, updated through
-2025-12); the Bylaws download page was directly WebFetch-verified.
+  ```
+  nbb tools/gen_kotoba.cljs
+  ```
+
+The `.cljc` is written by hand and the `.kotoba` is generated from the
+`.edn`, so the two faces are produced independently — which is the only
+reason `test/association_facts_kotoba_parity_test.clj` comparing them field
+by field means anything. Do not "simplify" that by generating both from one
+source.
+
+## How the citations were checked
+
+- **Code of Professional Conduct** — the source PDF's own cover page was
+  read ("Effective December 15, 2014. Updated for all official releases
+  through December 2025."). Strictest tier: the document states its own name
+  and dates.
+- **Every other entry** — the official download page was fetched and the
+  document title it names was compared against the title recorded here. That
+  confirms the URL resolves to the named document. It does *not* mean the PDF
+  behind it was opened, so a date is recorded **only** where the document's
+  own title, or the page's statement about the document, carried one. Entries
+  with no date carry none on purpose, and the parity test asserts the port
+  omits it on exactly those entries.
+
+**A 200 is not confirmation.** `aicpa-cima.com` serves a JavaScript shell for
+these routes, and the retired `us.aicpa.org/research/standards/*` paths all
+301 to a single generic landing page — so status code, content type and even
+a plausible byte count look the same for a live citation and a dead one. The
+rendered title is what was compared.
 
 ## License
 
