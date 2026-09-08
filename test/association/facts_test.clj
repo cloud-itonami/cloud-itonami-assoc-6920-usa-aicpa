@@ -6,7 +6,7 @@
   spec-basis. Those are the two claims a reader relies on, so they are checked
   here rather than left to the prose."
   (:require [clojure.test :refer [deftest is testing]]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             [clojure.edn :as edn]
             [association.facts :as facts]))
 
