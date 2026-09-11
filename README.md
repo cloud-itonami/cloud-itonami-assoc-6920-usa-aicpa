@@ -40,7 +40,7 @@ fabricate one.
   from the tx-data; do not edit by hand, regenerate:
 
   ```
-  nbb tools/gen_kotoba.cljs
+  kbb --backend sci tools/gen_kotoba.cljk
   ```
 
 The `.cljc` is written by hand and the `.kotoba` is generated from the
